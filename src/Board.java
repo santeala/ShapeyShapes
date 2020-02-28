@@ -21,6 +21,7 @@ public class Board extends JPanel implements ActionListener {
 
     public void setUp(){
         actors = new ArrayList<>();
+        STATS.updateLevel();
         actors.add(new Player(Color.GREEN, getWidth()/2, getHeight()/2, 25, 25, this, game));
 
         for (int i = 0; i < STATS.getNumFood(); i++){
@@ -62,7 +63,7 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         nextMoment = System.currentTimeMillis();
-        if((nextMoment - game.getMoment()) >= 3000){
+        if((nextMoment - game.getMoment()) >= 2000){
             checkCollisions();
         }
         if(game.getIsClicked()){
@@ -72,6 +73,8 @@ public class Board extends JPanel implements ActionListener {
         }
         if(actors.size() <= STATS.getNumEnemies() + 1){
             System.out.println("Killed em all");
+            STATS.setLevel(1+1);
+            setUp();
             game.notClicked();
         }
         repaint();

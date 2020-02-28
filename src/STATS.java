@@ -1,11 +1,11 @@
 public class STATS {
 
-    private static int numFood = 5;
-    private static int numEnemies = 2;
+    private static int numFood ;
+    private static int numEnemies;
     private static int life = 3;
     private static int level = 1;
-    private static int lowSpeed = 4;
-    private static int rangeSpeed = 8;
+    private static int lowSpeed;
+    private static int rangeSpeed;
 
     public static int getNumFood() {
         return numFood;
@@ -64,10 +64,10 @@ public class STATS {
                 setRangeSpeed(4);
                 break;
             case 2:
-                setNumFood(10);
+                setNumFood(8);
                 setNumEnemies(3);
-                setLowSpeed(8);
-                setRangeSpeed(10);
+                setLowSpeed(5);
+                setRangeSpeed(7);
         }
     }
 }
