@@ -7,6 +7,29 @@ public class STATS {
     private static int lowSpeed;
     private static int rangeSpeed;
 
+    private static boolean MENU = true;
+    private static boolean PAUSE = false;
+    private static boolean PLAY = false;
+
+    public static boolean isMENU() {
+        return MENU;
+    }
+    public static void setMENU(boolean MENU) {
+        STATS.MENU = MENU;
+    }
+    public static boolean isPAUSE() {
+        return PAUSE;
+    }
+    public static void setPAUSE(boolean PAUSE) {
+        STATS.PAUSE = PAUSE;
+    }
+    public static boolean isPLAY() {
+        return PLAY;
+    }
+    public static void setPLAY(boolean PLAY) {
+        STATS.PLAY = PLAY;
+    }
+
     public static int getNumFood() {
         return numFood;
     }
