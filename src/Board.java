@@ -35,18 +35,13 @@ public class Board extends JPanel implements ActionListener {
         timer.start();
     }
 
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        for (Sprite thisGuy: actors) {
-            thisGuy.paint(g);
-        }
-    }
-
     public void checkCollisions(){
         for(int i = 1; i < actors.size(); i++){
             if(actors.get(0).collidesWith(actors.get(i))){
                 if(actors.get(i) instanceof Enemy){
                     game.notClicked();
+                    STATS.setLife(STATS.getLife() - 1);
+                    setUp();
                 }
                 else
                     actors.get(i).setRemove();
@@ -63,20 +58,59 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         nextMoment = System.currentTimeMillis();
-        if((nextMoment - game.getMoment()) >= 2000){
-            checkCollisions();
+        if (STATS.isPLAY() && STATS.getLife() != 0) {
+            if ((nextMoment - game.getMoment()) >= 2000) {
+                checkCollisions();
+            }
+            if (actors.size() <= STATS.getNumEnemies() + 1) {
+                System.out.println("Killed em all");
+                STATS.setLevel(STATS.getLevel() + 1);
+                setUp();
+                game.notClicked();
+            }
         }
         if(game.getIsClicked()){
-            for(Sprite thisGuy: actors){
+            STATS.setPLAY(true);
+            STATS.setMENU(false);
+            for (Sprite thisGuy : actors) {
                 thisGuy.move();
             }
         }
-        if(actors.size() <= STATS.getNumEnemies() + 1){
-            System.out.println("Killed em all");
-            STATS.setLevel(1+1);
-            setUp();
-            game.notClicked();
-        }
         repaint();
     }
+
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        if(STATS.isMENU()){
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Arial", Font.PLAIN, 70));
+            printSimpleString("Shapey Shapes", getWidth(), 0, 150, g);
+            g.setFont(new Font("Arial", Font.BOLD, 35));
+            printSimpleString("Left Click to play", getWidth(), 0, 300, g);
+        }
+
+        if(STATS.getLife() == 0){
+            g.setColor(Color.RED);
+            g.setFont(new Font("Arial", Font.BOLD, 65));
+            printSimpleString("YOU DIED!", getWidth(), 0, 150, g);
+            g.setFont(new Font("Arial", Font.BOLD, 35));
+            printSimpleString("Left Click to retry", getWidth(), 0, 300, g);
+        }
+
+        if(STATS.isPLAY() && STATS.getLife() != 0){
+            for (Sprite thisGuy : actors) {
+                thisGuy.paint(g);
+            }
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("seriff", Font.BOLD, 20));
+            printSimpleString(" Lives:" + Integer.toString(STATS.getLife()), 50, 5,  20, g);
+        }
+    }
+
+    private void printSimpleString(String s, int width, int XPos, int YPos, Graphics g){
+        int stringLen = (int)g.getFontMetrics().getStringBounds(s, g).getWidth();
+        int start = width/2 -stringLen/2;
+        g.drawString(s, start + XPos, YPos);
+    }
+
 }

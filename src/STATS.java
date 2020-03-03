@@ -87,10 +87,17 @@ public class STATS {
                 setRangeSpeed(4);
                 break;
             case 2:
+                setNumFood(7);
+                setNumEnemies(2);
+                setLowSpeed(4);
+                setRangeSpeed(5);
+                break;
+            case 3:
                 setNumFood(8);
                 setNumEnemies(3);
-                setLowSpeed(5);
-                setRangeSpeed(7);
+                setLowSpeed(6);
+                setRangeSpeed(6);
+                setLife(getLife() + 1);
         }
     }
 }
