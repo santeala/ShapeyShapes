@@ -5,4 +5,9 @@ public class newFood extends Food{
         super(color, x, y, width, height, board);
     }
 
+    public void paint(Graphics g){
+        g.setColor(getColor());
+        g.fillOval(getX(), getY(), getWidth(), getHeight());
+    }
+
 }

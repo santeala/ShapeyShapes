@@ -6,9 +6,9 @@ public class STATS {
     private static int level = 1;
     private static int lowSpeed;
     private static int rangeSpeed;
+    private static int newFood = 2;
 
     private static boolean MENU = true;
-    private static boolean PAUSE = false;
     private static boolean PLAY = false;
 
     public static boolean isMENU() {
@@ -16,12 +16,6 @@ public class STATS {
     }
     public static void setMENU(boolean MENU) {
         STATS.MENU = MENU;
-    }
-    public static boolean isPAUSE() {
-        return PAUSE;
-    }
-    public static void setPAUSE(boolean PAUSE) {
-        STATS.PAUSE = PAUSE;
     }
     public static boolean isPLAY() {
         return PLAY;
@@ -78,6 +72,14 @@ public class STATS {
         STATS.rangeSpeed = rangeSpeed;
     }
 
+    public static int getNewFood() {
+        return newFood;
+    }
+
+    public static void setNewFood(int newFood) {
+        STATS.newFood = newFood;
+    }
+
     public static void updateLevel(){
         switch(level){
             case 1:
@@ -95,9 +97,8 @@ public class STATS {
             case 3:
                 setNumFood(8);
                 setNumEnemies(3);
-                setLowSpeed(6);
+                setLowSpeed(5);
                 setRangeSpeed(6);
-                setLife(getLife() + 1);
         }
     }
 }

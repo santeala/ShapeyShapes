@@ -23,7 +23,6 @@ public class Board extends JPanel implements ActionListener {
         actors = new ArrayList<>();
         STATS.updateLevel();
         actors.add(new Player(Color.GREEN, getWidth()/2, getHeight()/2, 25, 25, this, game));
-
         for (int i = 0; i < STATS.getNumFood(); i++){
             actors.add(new Food(Color.YELLOW, (int)(Math.random()*(getWidth()-paddingNum)+paddingNum), (int)(Math.random()*(getHeight()-paddingNum)+paddingNum), 20, 20, this));
         }
@@ -43,8 +42,14 @@ public class Board extends JPanel implements ActionListener {
                     STATS.setLife(STATS.getLife() - 1);
                     setUp();
                 }
-                else
+                if(actors.get(i) instanceof Food){
                     actors.get(i).setRemove();
+                   // actors.add(new Food(Color.ORANGE, getX(), getY(), 25, 25, this));
+                }
+                //else{
+                    //actors.get(i).setRemove();
+
+                //}
             }
         }
 
@@ -65,9 +70,11 @@ public class Board extends JPanel implements ActionListener {
             if (actors.size() <= STATS.getNumEnemies() + 1) {
                 System.out.println("Killed em all");
                 STATS.setLevel(STATS.getLevel() + 1);
+
                 setUp();
                 game.notClicked();
             }
+
         }
         if(game.getIsClicked()){
             STATS.setPLAY(true);
@@ -75,7 +82,13 @@ public class Board extends JPanel implements ActionListener {
             for (Sprite thisGuy : actors) {
                 thisGuy.move();
             }
+
         }
+        /*if(STATS.getLife() == 0 && game.getIsClicked()){
+            STATS.setLife(3);
+            STATS.setPLAY(false);
+            STATS.setMENU(true);
+        }*/
         repaint();
     }
 
@@ -104,6 +117,13 @@ public class Board extends JPanel implements ActionListener {
             g.setColor(Color.WHITE);
             g.setFont(new Font("seriff", Font.BOLD, 20));
             printSimpleString(" Lives:" + Integer.toString(STATS.getLife()), 50, 5,  20, g);
+        }
+        if(STATS.getLevel() == 4){
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("seriff", Font.BOLD, 20));
+            printSimpleString(" You Won" getWidth(), 0, 150, g);
+            g.setFont(new Font("Arial", Font.BOLD, 35));
+            printSimpleString("Left Click to retry", getWidth(), 0, 300, g);
         }
     }
 

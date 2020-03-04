@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 public class Game extends JFrame {
 
      Board board;
+     Player player;
      int positionX, positionY;
      long moment;
      boolean mouseClicked = false;
