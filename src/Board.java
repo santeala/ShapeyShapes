@@ -44,12 +44,7 @@ public class Board extends JPanel implements ActionListener {
                 }
                 if(actors.get(i) instanceof Food){
                     actors.get(i).setRemove();
-                   // actors.add(new Food(Color.ORANGE, getX(), getY(), 25, 25, this));
                 }
-                //else{
-                    //actors.get(i).setRemove();
-
-                //}
             }
         }
 
@@ -70,25 +65,27 @@ public class Board extends JPanel implements ActionListener {
             if (actors.size() <= STATS.getNumEnemies() + 1) {
                 System.out.println("Killed em all");
                 STATS.setLevel(STATS.getLevel() + 1);
-
                 setUp();
                 game.notClicked();
+                if(STATS.getLevel()==4)
+                    STATS.setEND(true);
             }
 
         }
         if(game.getIsClicked()){
             STATS.setPLAY(true);
             STATS.setMENU(false);
+            STATS.setEND(false);
             for (Sprite thisGuy : actors) {
                 thisGuy.move();
             }
-
         }
-        /*if(STATS.getLife() == 0 && game.getIsClicked()){
+
+        if(STATS.getLife() == 0 && game.getIsClicked()){
             STATS.setLife(3);
             STATS.setPLAY(false);
             STATS.setMENU(true);
-        }*/
+        }
         repaint();
     }
 
@@ -118,10 +115,12 @@ public class Board extends JPanel implements ActionListener {
             g.setFont(new Font("seriff", Font.BOLD, 20));
             printSimpleString(" Lives:" + Integer.toString(STATS.getLife()), 50, 5,  20, g);
         }
-        if(STATS.getLevel() == 4){
+
+        if(STATS.isEND()){
+            STATS.setPLAY(false);
             g.setColor(Color.WHITE);
             g.setFont(new Font("seriff", Font.BOLD, 20));
-            printSimpleString(" You Won" getWidth(), 0, 150, g);
+            printSimpleString(" You Won", getWidth(), 0, 150, g);
             g.setFont(new Font("Arial", Font.BOLD, 35));
             printSimpleString("Left Click to retry", getWidth(), 0, 300, g);
         }

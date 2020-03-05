@@ -10,6 +10,7 @@ public class STATS {
 
     private static boolean MENU = true;
     private static boolean PLAY = false;
+    private static boolean END = false;
 
     public static boolean isMENU() {
         return MENU;
@@ -22,6 +23,12 @@ public class STATS {
     }
     public static void setPLAY(boolean PLAY) {
         STATS.PLAY = PLAY;
+    }
+    public static boolean isEND() {
+        return END;
+    }
+    public static void setEND(boolean END) {
+        STATS.END = END;
     }
 
     public static int getNumFood() {
@@ -91,14 +98,14 @@ public class STATS {
             case 2:
                 setNumFood(7);
                 setNumEnemies(2);
-                setLowSpeed(4);
-                setRangeSpeed(5);
+                setLowSpeed(1);
+                setRangeSpeed(1);
                 break;
             case 3:
                 setNumFood(8);
                 setNumEnemies(3);
-                setLowSpeed(5);
-                setRangeSpeed(6);
+                setLowSpeed(1);
+                setRangeSpeed(1);
         }
     }
 }
