@@ -28,10 +28,10 @@ public class Board extends JPanel implements ActionListener {
         }
         for(int i = 0; i < STATS.getNumEnemies(); i++){
             actors.add(new Enemy(Color.RED, (int)(Math.random()*(getWidth()-paddingNum)+paddingNum), (int)(Math.random()*(getHeight()-paddingNum)+paddingNum), 35, 35, this));
-         }
-
+        }
         timer = new Timer(1000/60, this);
         timer.start();
+
     }
 
     public void checkCollisions(){
@@ -40,11 +40,11 @@ public class Board extends JPanel implements ActionListener {
                 if(actors.get(i) instanceof Enemy){
                     game.notClicked();
                     STATS.setLife(STATS.getLife() - 1);
+                    timer.stop();
                     setUp();
-                }
-                if(actors.get(i) instanceof Food){
+                }else
                     actors.get(i).setRemove();
-                }
+
             }
         }
 
@@ -67,18 +67,17 @@ public class Board extends JPanel implements ActionListener {
                 STATS.setLevel(STATS.getLevel() + 1);
                 setUp();
                 game.notClicked();
-
             }
+
             if(STATS.getLife() == 0){
                 STATS.setDIED(true);
                 STATS.setLevel(1);
             }
 
-            if(STATS.getLevel()==4){
+            if(STATS.getLevel() == 4){
                 STATS.setEND(true);
                 STATS.setLevel(1);
             }
-
         }
 
         if(game.getIsClicked()){
@@ -93,14 +92,16 @@ public class Board extends JPanel implements ActionListener {
 
         if(STATS.isDIED()){
             STATS.setPLAY(false);
-            STATS.updateLevel();
             STATS.setLife(3);
+            timer.stop();
+            setUp();
         }
 
         if(STATS.isEND()){
             STATS.setPLAY(false);
-            STATS.updateLevel();
-       }
+            timer.stop();
+            setUp();
+        }
         repaint();
     }
 
@@ -128,7 +129,7 @@ public class Board extends JPanel implements ActionListener {
             }
             g.setColor(Color.WHITE);
             g.setFont(new Font("seriff", Font.BOLD, 20));
-            printSimpleString(" Lives:" + Integer.toString(STATS.getLife()), 50, 5,  20, g);
+            printSimpleString(" Lives:" + STATS.getLife(), 50, 5,  20, g);
         }
 
         if(STATS.isEND()){

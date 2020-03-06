@@ -6,7 +6,6 @@ public class STATS {
     private static int level = 1;
     private static int lowSpeed;
     private static int rangeSpeed;
-    private static int newFood = 2;
 
     private static boolean MENU = true;
     private static boolean PLAY = false;
@@ -86,14 +85,6 @@ public class STATS {
         STATS.rangeSpeed = rangeSpeed;
     }
 
-    public static int getNewFood() {
-        return newFood;
-    }
-
-    public static void setNewFood(int newFood) {
-        STATS.newFood = newFood;
-    }
-
     public static void updateLevel(){
         switch(level){
             case 1:
@@ -101,18 +92,21 @@ public class STATS {
                 setNumEnemies(1);
                 setLowSpeed(4);
                 setRangeSpeed(4);
+                System.out.println("1");
                 break;
             case 2:
                 setNumFood(7);
                 setNumEnemies(2);
-                setLowSpeed(1);
-                setRangeSpeed(1);
+                setLowSpeed(5);
+                setRangeSpeed(5);
+                System.out.println("2");
                 break;
             case 3:
                 setNumFood(8);
                 setNumEnemies(3);
-                setLowSpeed(1);
-                setRangeSpeed(1);
+                setLowSpeed(6);
+                setRangeSpeed(6);
+                System.out.println("3");
         }
     }
 }
