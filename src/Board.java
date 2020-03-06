@@ -74,7 +74,6 @@ public class Board extends JPanel implements ActionListener {
                 STATS.setLevel(1);
             }
 
-
             if(STATS.getLevel()==4){
                 STATS.setEND(true);
                 STATS.setLevel(1);
@@ -95,13 +94,12 @@ public class Board extends JPanel implements ActionListener {
         if(STATS.isDIED()){
             STATS.setPLAY(false);
             STATS.updateLevel();
-            setUp();
+            STATS.setLife(3);
         }
 
         if(STATS.isEND()){
             STATS.setPLAY(false);
             STATS.updateLevel();
-            setUp();
        }
         repaint();
     }
