@@ -11,6 +11,7 @@ public class STATS {
     private static boolean MENU = true;
     private static boolean PLAY = false;
     private static boolean END = false;
+    private static boolean DIED = false;
 
     public static boolean isMENU() {
         return MENU;
@@ -29,6 +30,12 @@ public class STATS {
     }
     public static void setEND(boolean END) {
         STATS.END = END;
+    }
+    public static boolean isDIED() {
+        return DIED;
+    }
+    public static void setDIED(boolean DIED) {
+        STATS.DIED = DIED;
     }
 
     public static int getNumFood() {

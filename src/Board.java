@@ -27,7 +27,7 @@ public class Board extends JPanel implements ActionListener {
             actors.add(new Food(Color.YELLOW, (int)(Math.random()*(getWidth()-paddingNum)+paddingNum), (int)(Math.random()*(getHeight()-paddingNum)+paddingNum), 20, 20, this));
         }
         for(int i = 0; i < STATS.getNumEnemies(); i++){
-            actors.add(new Enemy(Color.RED, (int)(Math.random()*(getWidth()-paddingNum)+paddingNum), (int)(Math.random()*(getHeight()-paddingNum)+paddingNum), 50, 50, this));
+            actors.add(new Enemy(Color.RED, (int)(Math.random()*(getWidth()-paddingNum)+paddingNum), (int)(Math.random()*(getHeight()-paddingNum)+paddingNum), 35, 35, this));
          }
 
         timer = new Timer(1000/60, this);
@@ -58,7 +58,7 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         nextMoment = System.currentTimeMillis();
-        if (STATS.isPLAY() && STATS.getLife() != 0) {
+        if (STATS.isPLAY() && !STATS.isDIED()) {
             if ((nextMoment - game.getMoment()) >= 2000) {
                 checkCollisions();
             }
@@ -67,25 +67,42 @@ public class Board extends JPanel implements ActionListener {
                 STATS.setLevel(STATS.getLevel() + 1);
                 setUp();
                 game.notClicked();
-                if(STATS.getLevel()==4)
-                    STATS.setEND(true);
+
+            }
+            if(STATS.getLife() == 0){
+                STATS.setDIED(true);
+                STATS.setLevel(1);
+            }
+
+
+            if(STATS.getLevel()==4){
+                STATS.setEND(true);
+                STATS.setLevel(1);
             }
 
         }
+
         if(game.getIsClicked()){
             STATS.setPLAY(true);
             STATS.setMENU(false);
             STATS.setEND(false);
+            STATS.setDIED(false);
             for (Sprite thisGuy : actors) {
                 thisGuy.move();
             }
         }
 
-        if(STATS.getLife() == 0 && game.getIsClicked()){
-            STATS.setLife(3);
+        if(STATS.isDIED()){
             STATS.setPLAY(false);
-            STATS.setMENU(true);
+            STATS.updateLevel();
+            setUp();
         }
+
+        if(STATS.isEND()){
+            STATS.setPLAY(false);
+            STATS.updateLevel();
+            setUp();
+       }
         repaint();
     }
 
@@ -99,7 +116,7 @@ public class Board extends JPanel implements ActionListener {
             printSimpleString("Left Click to play", getWidth(), 0, 300, g);
         }
 
-        if(STATS.getLife() == 0){
+        if(STATS.isDIED()){
             g.setColor(Color.RED);
             g.setFont(new Font("Arial", Font.BOLD, 65));
             printSimpleString("YOU DIED!", getWidth(), 0, 150, g);
@@ -107,7 +124,7 @@ public class Board extends JPanel implements ActionListener {
             printSimpleString("Left Click to retry", getWidth(), 0, 300, g);
         }
 
-        if(STATS.isPLAY() && STATS.getLife() != 0){
+        if(STATS.isPLAY() && !STATS.isDIED()){
             for (Sprite thisGuy : actors) {
                 thisGuy.paint(g);
             }
@@ -117,7 +134,6 @@ public class Board extends JPanel implements ActionListener {
         }
 
         if(STATS.isEND()){
-            STATS.setPLAY(false);
             g.setColor(Color.WHITE);
             g.setFont(new Font("seriff", Font.BOLD, 20));
             printSimpleString(" You Won", getWidth(), 0, 150, g);
