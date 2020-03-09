@@ -42,8 +42,11 @@ public class Board extends JPanel implements ActionListener {
                     STATS.setLife(STATS.getLife() - 1);
                     timer.stop();
                     setUp();
-                }else
+                }else{
                     actors.get(i).setRemove();
+                    //actors.add(new Food(Color.ORANGE, getX(), getY(), 15, 15, this));
+                    //Spawn an object in the exact spot where 2 objects collide
+                }
 
             }
         }

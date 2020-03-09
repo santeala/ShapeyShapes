@@ -92,21 +92,18 @@ public class STATS {
                 setNumEnemies(1);
                 setLowSpeed(4);
                 setRangeSpeed(4);
-                System.out.println("1");
                 break;
             case 2:
                 setNumFood(7);
                 setNumEnemies(2);
                 setLowSpeed(5);
-                setRangeSpeed(5);
-                System.out.println("2");
+                setRangeSpeed(6);
                 break;
             case 3:
                 setNumFood(8);
                 setNumEnemies(3);
                 setLowSpeed(6);
                 setRangeSpeed(6);
-                System.out.println("3");
         }
     }
 }
