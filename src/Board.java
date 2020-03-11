@@ -17,6 +17,7 @@ public class Board extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(600, 800));
         setBackground(Color.BLACK);
         this.game = game;
+
     }
 
     public void setUp(){
@@ -33,7 +34,6 @@ public class Board extends JPanel implements ActionListener {
         timer.start();
 
     }
-
     public void checkCollisions(){
         for(int i = 1; i < actors.size(); i++){
             if(actors.get(0).collidesWith(actors.get(i))){
@@ -42,11 +42,13 @@ public class Board extends JPanel implements ActionListener {
                     STATS.setLife(STATS.getLife() - 1);
                     timer.stop();
                     setUp();
-                }else{
-                    actors.get(i).setRemove();
-                    //actors.add(new Food(Color.ORANGE, getX(), getY(), 15, 15, this));
-                    //Spawn an object in the exact spot where 2 objects collide
                 }
+                else if((actors.get(i) instanceof Food)){
+                    actors.get(i).setRemove();
+                    //actors.add(new Food(Color.ORANGE, actors.get(i).getX(), actors.get(i).getY(), 15, 15, this));
+                }
+                else
+                    actors.remove(i);
 
             }
         }

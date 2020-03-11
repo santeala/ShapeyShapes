@@ -90,20 +90,20 @@ public class STATS {
             case 1:
                 setNumFood(5);
                 setNumEnemies(1);
-                setLowSpeed(4);
-                setRangeSpeed(4);
+                setLowSpeed(5);
+                setRangeSpeed(5);
                 break;
             case 2:
                 setNumFood(7);
                 setNumEnemies(2);
-                setLowSpeed(5);
-                setRangeSpeed(6);
+                setLowSpeed(6);
+                setRangeSpeed(8);
                 break;
             case 3:
                 setNumFood(8);
                 setNumEnemies(3);
-                setLowSpeed(6);
-                setRangeSpeed(6);
+                setLowSpeed(8);
+                setRangeSpeed(10);
         }
     }
 }
